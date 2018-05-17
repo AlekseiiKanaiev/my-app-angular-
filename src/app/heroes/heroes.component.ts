@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Hero} from '../hero';
 import {Heroes} from '../mock-heroes';
+import {HeroService} from '../hero.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-heroes',
@@ -8,11 +10,21 @@ import {Heroes} from '../mock-heroes';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes = Heroes;
+  heroes: Hero[];
   selectedHero: Hero;
-  constructor() { }
+  constructor(private heroService: HeroService) {}
 
   ngOnInit() {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    // this.heroes = this.heroService.getHeroes();
+    /**меняем на асинхронное получение данных через observable
+     * getHeroes() возвращает объект observable, а через метод
+     * subscribe мы получаем данные (аналог then в Promise)*/
+    this.heroService.getHeroes()
+                    .subscribe(heroes => this.heroes = heroes);
   }
 
   onSelect(hero: Hero): void {
