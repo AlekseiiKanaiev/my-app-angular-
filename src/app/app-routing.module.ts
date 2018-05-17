@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {HeroesComponent} from './heroes/heroes.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {HeroDetailComponent} from './hero-detail/hero-detail.component';
 
 /**Добавляем роуты для перехода
  * На пример: для адреса localhost:4200/heroes будет "преход" на
  * компонент HeroesComponent*/
+
 const routes: Routes = [
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'heroes', component: HeroesComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+  // The colon (:) in the path indicates that :id is a placeholder for a specific hero id.
+  {path: 'detail/:id', component: HeroDetailComponent}
 ];
 
 @NgModule({
