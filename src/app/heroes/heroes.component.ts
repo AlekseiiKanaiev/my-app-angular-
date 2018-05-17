@@ -20,7 +20,11 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     // this.heroes = this.heroService.getHeroes();
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = this.heroes);
+    /**меняем на асинхронное получение данных через observable
+     * getHeroes() возвращает объект observable, а через метод
+     * subscribe мы получаем данные (аналог then в Promise)*/
+    this.heroService.getHeroes()
+                    .subscribe(heroes => this.heroes = heroes);
   }
 
   onSelect(hero: Hero): void {
